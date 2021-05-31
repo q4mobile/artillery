@@ -70,7 +70,7 @@
     "try-require": "^1.2.1",
     "update-notifier": "^2.1.0",
     "uuid": "^2.0.3",
-    "ws": "^5.1.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "bats": "^0.4.2",
