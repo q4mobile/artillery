@@ -101,7 +101,11 @@ module.exports = WSEngine;
 
        let ws = new WebSocket(config.target, 'graphql-transport-ws');
        ws.on('open', function() {
-         const message = { type: "connection_init", payload: { portalId: 22, culture: "de-CH" } }
+         const payload = { portalId: 22, culture: "de-CH" };
+         if (config.ws.token) {
+          payload['Authorization'] = config.ws.token;
+         }
+         const message = { type: "connection_init", payload: payload }
          const result = ws.send(JSON.stringify(message), function(err) {
            if (err) {
              console.error(err)
@@ -111,6 +115,7 @@ module.exports = WSEngine;
          return callback(null, initialContext);
        });
        ws.on('message', function(msg) {
+         debug('MSG: %s', msg);
          let parsedMsg;
          try {
            parsedMsg = JSON.parse(msg)
